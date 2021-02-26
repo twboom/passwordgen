@@ -71,6 +71,5 @@ print("Done")
 print("Finished in " + str(total_time * 1000) + " miliseconds")
 print("(" + str((total_time / count) * 1000) + " miliseconds per password on avarage)")
 print(str(doubles) + " doubles detected")
-
-input("Press enter to continue")
 output.close()
+input("Press enter to continue")
