@@ -1,6 +1,7 @@
 import random
 import os
 import sys
+import time
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -24,25 +25,9 @@ doubles = 0
 
 def calculate_size():
     size = count * length
-    
-    if size % 1000 == range:
-        content = str(size / 1000) + " KB (" + str(size) + " bytes)"
-        return content
-
-    if size % 1000000 == 0:
-        content = str(size / 1000000) + " MB (" + str(size) + " bytes)"
-        return content
-    
-    if size % 1000000000 == 0:
-        content = str(size / 1000000000) + " GB (" + str(size) + " bytes)"
-        return content
-    
-    if size % 1000000000000 == 0:
-        content = str(size / 1000000000000) + " TB (" + str(size) + " bytes)"
-        return content
-    
-    else:
-        return str(size) + " bytes"
+    kb_size = size / 1024
+    mb_size = kb_size / 1024
+    return str(mb_size) + " MB (" + str(size) + " bytes)"
 
 def generate_pass():
     for i in range(count):
@@ -64,7 +49,12 @@ size_check = input("Do you want to continue? Y/N ")
 if size_check == "N": exit()
 if size_check == "n": exit()
 print("Generating " + str(count) + " passwords with length " + str(length))
+start_time = time.time()
 generate_pass()
+end_time = time.time()
+total_time = end_time - start_time
 print("Done")
+print("Finished in " + str(total_time * 1000) + " miliseconds")
+print("(" + str((total_time / count) * 1000) + " miliseconds per password on avarage)")
 print(str(doubles) + " doubles detected")
 input("Press enter to continue")
