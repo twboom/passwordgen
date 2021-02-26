@@ -14,13 +14,24 @@ characters = {
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
-file_name = "output/" + str(time.time()) + ".genpass"
+if not os.path.isdir("output"):
+    os.mkdir('output')
+
+if not os.path.isfile('config.passgen'): chars = characters["lowercase"] + characters["uppercase"] + characters["numbers"] + characters["characters"]
+else:
+    chars = open('config.passgen').read().splitlines()
+    print("Loaded custom config")
+
+file_name = "output/" + str(time.time()) + ".passgen"
 output = open(file_name, "a")
 passwords = []
 chars = characters["lowercase"] + characters["uppercase"] + characters["numbers"] + characters["characters"]
 count = int(input("Count: "))
 length = int(input("Length: "))
 doubles = 0
+
+
+
 
 def calculate_size():
     size = count * length
@@ -45,7 +56,7 @@ def generate_list(count, length, printing):
             continue
         passwords.append(password)
         output.write(password + "\n")
-        if printing == True: print(str(i + 1) + ": " + password)
+        if printing == True: print(str(i + 1) + ":  " + password)
 
 
         
