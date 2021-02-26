@@ -51,7 +51,7 @@ def generate_list(count, length, printing):
 
         
 print("The file will be " + str(calculate_size()))
-size_check = input("Do you want to continue? Y/N ")
+size_check = input("Do you want to continue? [Default: True] Y/N ")
 if size_check == "N": exit()
 if size_check == "n": exit()
 
