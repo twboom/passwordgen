@@ -2,26 +2,20 @@ import random
 import os
 import sys
 import time
-
+os.system('cls' if os.name == 'nt' else 'clear')
 printing = True
-
 characters = {
     "lowercase": ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"],
     "uppercase": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
     "numbers": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ],
     "characters": ["!", "@", "#", "$", "%", "&", "*", "(", ")", "-", "_", "=", "+", "[", "]", "{", "}", ";", ":", "<", ">", ",", ".", "/", "?"]
 }
-
-os.system('cls' if os.name == 'nt' else 'clear')
-
 if not os.path.isdir("output"):
     os.mkdir('output')
-
 if not os.path.isfile('config.passgen'): chars = characters["lowercase"] + characters["uppercase"] + characters["numbers"] + characters["characters"]
 else:
     chars = open('config.passgen').read().splitlines()
     print("Loaded custom config")
-
 file_name = "output/" + str(time.time()) + ".passgen"
 output = open(file_name, "a")
 passwords = []
@@ -29,9 +23,6 @@ chars = characters["lowercase"] + characters["uppercase"] + characters["numbers"
 count = int(input("Count: "))
 length = int(input("Length: "))
 doubles = 0
-
-
-
 
 def calculate_size():
     size = count * length
@@ -58,20 +49,28 @@ def generate_list(count, length, printing):
         output.write(password + "\n")
         if printing == True: print(str(i + 1) + ":  " + password)
 
-
         
 print("The file will be " + str(calculate_size()))
 size_check = input("Do you want to continue? Y/N ")
 if size_check == "N": exit()
 if size_check == "n": exit()
+
+print_check = input("Do you want to print the passwords(slower) [Default: True] Y/N ")
+isPrinting = True
+if print_check == "N": isPrinting = False
+if print_check == "n": isPrinting = False
+
 print("Generating " + str(count) + " passwords with length " + str(length))
 start_time = time.time()
-generate_list(count, length, printing)
+
+generate_list(count, length, isPrinting)
 end_time = time.time()
 total_time = end_time - start_time
 print("Done")
+
 print("Finished in " + str(total_time * 1000) + " miliseconds")
 print("(" + str((total_time / count) * 1000) + " miliseconds per password on avarage)")
 print(str(doubles) + " doubles detected")
+
 input("Press enter to continue")
 output.close()
