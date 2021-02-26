@@ -10,6 +10,16 @@ files = os.listdir('output')
 path = 'combinedfiles/' + str(time.time()) + ".passes"
 combined = open(path, "a")
 passwords = []
+duplicates = 0
+
+def duplicatesCounter(password):
+    global duplicates
+    duplicates += 1
+    print("Duplicate found: " + str(password))
+    print(str(duplicates) + " duplicates")
+
+print('Starting merging ' + str(len(files)) + ' files')
+
 for single in files:
     print(single)
     this_path = 'output/' + single
@@ -19,6 +29,7 @@ for single in files:
         if line not in passwords:
             passwords.append(line)
             combined.write(line + '\n')
+            duplicatesCounter(line)
         else: continue
 
 
