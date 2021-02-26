@@ -32,6 +32,7 @@ for single in files:
         else:
             duplicatesCounter(line)
             continue
+    this_file.close()
     print('Finished "' + single + '"')
 
 print('Done')
