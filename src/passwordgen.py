@@ -16,7 +16,7 @@ if not os.path.isfile('config.passgen'): chars = characters["lowercase"] + chara
 else:
     chars = open('config.passgen').read().splitlines()
     print("Loaded custom config")
-file_name = "output/" + str(time.time()) + ".passgen"
+file_name = "output/" + str(time.time()) + ".passes"
 output = open(file_name, "a")
 passwords = []
 chars = characters["lowercase"] + characters["uppercase"] + characters["numbers"] + characters["characters"]
