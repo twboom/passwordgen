@@ -11,6 +11,7 @@ path = 'combinedfiles/' + str(time.time()) + ".passes"
 combined = open(path, "a")
 passwords = []
 duplicates = 0
+start_time = time.time()
 
 def duplicatesCounter(password):
     global duplicates
@@ -21,7 +22,6 @@ def duplicatesCounter(password):
 print('Starting merging ' + str(len(files)) + ' files')
 
 for single in files:
-    print(single)
     this_path = 'output/' + single
     this_file = open(this_path)
     lines = this_file.read().splitlines()
@@ -29,9 +29,11 @@ for single in files:
         if line not in passwords:
             passwords.append(line)
             combined.write(line + '\n')
+        else:
             duplicatesCounter(line)
-        else: continue
+            continue
+    print('Finished "' + single + '"')
 
-
-print(files)
-input()
+print('Done')
+print('Merged ' + str(len(files)) + ' files in ' + str(time.time() - start_time) + ' seconds')
+input('Press enter to exit')
