@@ -3,12 +3,7 @@ import os
 import sys
 import time
 
-os.system('cls' if os.name == 'nt' else 'clear')
-
-f = open("output.txt", "w")
-f.write("")
-output = open("output.txt", "a")
-passwords = []
+printing = True
 
 characters = {
     "lowercase": ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"],
@@ -17,8 +12,12 @@ characters = {
     "characters": ["!", "@", "#", "$", "%", "&", "*", "(", ")", "-", "_", "=", "+", "[", "]", "{", "}", ";", ":", "<", ">", ",", ".", "/", "?"]
 }
 
+os.system('cls' if os.name == 'nt' else 'clear')
+f = open("output.txt", "w")
+f.write("")
+output = open("output.txt", "a")
+passwords = []
 chars = characters["lowercase"] + characters["uppercase"] + characters["numbers"] + characters["characters"]
-
 count = int(input("Count: "))
 length = int(input("Length: "))
 doubles = 0
@@ -29,20 +28,26 @@ def calculate_size():
     mb_size = kb_size / 1024
     return str(mb_size) + " MB (" + str(size) + " bytes)"
 
-def generate_pass():
+def generate_password(length):
+    letters = []
+    for x in range (length):
+        letters.append(random.choice(chars))
+    password = ''.join(letters)
+    return password
+
+def generate_list(count, length, printing):
     for i in range(count):
-        letters = []
-        for x in range(length):
-            letters.append(random.choice(chars))
-        password = ''.join(letters)
-        print(str(i + 1) + ": " + password)
+        password = generate_password(length)
         if password in passwords:
             global doubles
             doubles += 1
-            print("Double detected (" + str(doubles) + ")")
-        else:
-            output.write(password + '\n')
-            passwords.append(password)
+            print(str(i + 1) + ": Double detected (" + str(doubles) + " doubles) ('" + password + "')")
+            continue
+        passwords.append(password)
+        output.write(password + "\n")
+        if printing == True: print(str(i + 1) + ": " + password)
+
+
         
 print("The file will be " + str(calculate_size()))
 size_check = input("Do you want to continue? Y/N ")
@@ -50,7 +55,7 @@ if size_check == "N": exit()
 if size_check == "n": exit()
 print("Generating " + str(count) + " passwords with length " + str(length))
 start_time = time.time()
-generate_pass()
+generate_list(count, length, printing)
 end_time = time.time()
 total_time = end_time - start_time
 print("Done")
