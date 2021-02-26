@@ -13,9 +13,9 @@ characters = {
 }
 
 os.system('cls' if os.name == 'nt' else 'clear')
-f = open("output.txt", "w")
-f.write("")
-output = open("output.txt", "a")
+
+file_name = "output/" + str(time.time()) + ".genpass"
+output = open(file_name, "a")
 passwords = []
 chars = characters["lowercase"] + characters["uppercase"] + characters["numbers"] + characters["characters"]
 count = int(input("Count: "))
